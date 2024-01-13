@@ -79,7 +79,7 @@ impl HttpServer {
                             let request = HttpRequest::parse(&stream_parsed, &route);
                             let response = (route.callback)(request);
 
-                            format!("HTTP/1.1 200 OK\r\nContent-Type: application/json; charset=utf-8\r\nContent-Lenght: {}\r\n\r\n{}",  response.body.len(), response.body)
+                            format!("HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\nContent-Lenght: {}\r\n\r\n{}",  response.body.len(), response.body)
                         },
                         None => {
                             "HTTP/1.1 400 BAD REQUEST\r\n\r\n400 Bad Request".to_string()
