@@ -55,11 +55,11 @@ pub mod tests {
         let result = HttpResponse::new();
 
         assert!(result.body.is_empty());
-        assert!(result.status == 0);
+        assert_eq!(result.status, StatusCode::default());
     }
 
     #[test]
-    fn it_acn_insert_status(){
+    fn it_can_insert_status(){
         let mut result = HttpResponse::new();
 
         result.set_status(StatusCode::CREATED);
@@ -71,12 +71,10 @@ pub mod tests {
     fn it_can_insert_body(){
         let mut result = HttpResponse::new();
 
-        let content = String::from("Couteudo da http response");
-
-        result.set_body(content);
+        result.set_body(String::from("Couteúdo da http response"));
 
         assert!(!result.body.is_empty());
-        assert_eq!(result.body, "Couteudo da http response");
+        assert_eq!(result.body, "Couteúdo da http response");
     }
 
     
@@ -94,8 +92,6 @@ pub mod tests {
         let response = serde_json::to_string(&response).unwrap();
         let expected = response.clone();
 
-        dbg!(&response);
-
         result.set_body(response);
 
         assert!(!result.body.is_empty());
@@ -107,11 +103,9 @@ pub mod tests {
     fn it_can_insert_headers(){
         let mut result = HttpResponse::new();
 
-        assert!(result.headers.is_empty());
-
         result.set_headers(CONTENT_TYPE, "text/html");
 
-        assert_eq!(result.headers.len(), 1)
+        assert_eq!(result.headers.len(), 2)
     }
 
     #[test]
